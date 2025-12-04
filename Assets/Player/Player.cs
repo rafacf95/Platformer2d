@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Player : MonoBehaviour
+public class Player : HealthBase
 {
 
     public Rigidbody2D myRigidBody;
@@ -29,11 +29,6 @@ public class Player : MonoBehaviour
 
     private void HandleMovement()
     {
-
-        // if (Input.GetKey(KeyCode.LeftShift))
-        //     _currentSpeed = speedRun;
-        // else
-        //     _currentSpeed = speed;
 
         _currentSpeed = Input.GetKey(KeyCode.LeftShift) ? speedRun : speed;
 
@@ -63,14 +58,14 @@ public class Player : MonoBehaviour
             myRigidBody.velocity = Vector2.up * jumpForce;
             myRigidBody.transform.localScale = Vector2.one;
 
-            DOTween.Kill(myRigidBody.transform);
-
             HandleScaleJump();
+
         }
     }
 
     private void HandleScaleJump()
     {
+        DOTween.Kill(myRigidBody.transform);
         myRigidBody.transform.DOScaleY(jumpScaleY, duration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
         myRigidBody.transform.DOScaleX(jumpScaleX, duration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
     }
