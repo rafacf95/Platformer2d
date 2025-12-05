@@ -19,12 +19,16 @@ public class Player : HealthBase
     public float jumpScaleX = .5f;
     public float duration = .3f;
     public Ease ease = Ease.OutBack;
+    public Animator playerAnimator;
+    public float playerSwipeDuration = .1f;
 
     private float _currentSpeed;
     private void Update()
     {
         HandleJump();
+        HandleJumpAnimation();
         HandleMovement();
+
     }
 
     private void HandleMovement()
@@ -35,10 +39,25 @@ public class Player : HealthBase
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             myRigidBody.velocity = new Vector2(-_currentSpeed, myRigidBody.velocity.y);
+            if (myRigidBody.transform.localScale.x != -1)
+            {
+                myRigidBody.transform.DOScaleX(-1, playerSwipeDuration);
+            }
+            playerAnimator.SetBool("_running", true);
+
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             myRigidBody.velocity = new Vector2(_currentSpeed, myRigidBody.velocity.y);
+            if (myRigidBody.transform.localScale.x != 1)
+            {
+                myRigidBody.transform.DOScaleX(1, playerSwipeDuration);
+            }
+            playerAnimator.SetBool("_running", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("_running", false);
         }
 
         if (myRigidBody.velocity.x > 0)
@@ -56,10 +75,33 @@ public class Player : HealthBase
         if (Input.GetKeyDown(KeyCode.Space))
         {
             myRigidBody.velocity = Vector2.up * jumpForce;
-            myRigidBody.transform.localScale = Vector2.one;
+            // myRigidBody.transform.localScale = Vector2.one;
+            // HandleScaleJump();
 
-            HandleScaleJump();
+        }
+    }
 
+    private void HandleJumpAnimation()
+    {
+        if (myRigidBody.velocity.y > 0)
+        {
+            Debug.Log("moving up");
+            playerAnimator.SetBool("_grounded", false);
+            playerAnimator.SetBool("_goingDown", false);
+            playerAnimator.SetBool("_goingUp", true);
+        }
+        else if (myRigidBody.velocity.y < 0)
+        {
+            Debug.Log("moving down");
+            playerAnimator.SetBool("_grounded", false);
+            playerAnimator.SetBool("_goingUp", false);
+            playerAnimator.SetBool("_goingDown", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("_goingUp", false);
+            playerAnimator.SetBool("_goingDown", false);
+            playerAnimator.SetBool("_grounded", true);
         }
     }
 
