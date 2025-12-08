@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening.Core.Easing;
 using UnityEngine;
 
 public class HealthBase : MonoBehaviour
@@ -9,8 +10,9 @@ public class HealthBase : MonoBehaviour
     public bool destroyOnKill = false;
     public float destroyDelay = 1f;
 
-    private int _currentLife;
+    [SerializeField] private int _currentLife;
     private bool _isDead = false;
+    [SerializeField] private FlashColor _flashColor;
 
     private void Awake()
     {
@@ -21,11 +23,15 @@ public class HealthBase : MonoBehaviour
     {
         _isDead = false;
         _currentLife = startLife;
+
+        if (_flashColor == null)
+        {
+            _flashColor = gameObject.GetComponent<FlashColor>();
+        }
     }
 
     public void Damage(int damage)
     {
-
         if (_isDead) return;
 
         _currentLife -= damage;
@@ -33,6 +39,11 @@ public class HealthBase : MonoBehaviour
         if (_currentLife <= 0)
         {
             Kill();
+        }
+
+        if (_flashColor != null)
+        {
+            _flashColor.Flash();
         }
     }
 
