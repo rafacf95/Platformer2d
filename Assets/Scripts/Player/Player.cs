@@ -23,6 +23,12 @@ public class Player : HealthBase
     public float playerSwipeDuration = .1f;
 
     private float _currentSpeed;
+
+    void Start()
+    {
+        OnKill += OnPlayerKill;
+    }
+
     private void Update()
     {
         HandleJump();
@@ -111,4 +117,16 @@ public class Player : HealthBase
         myRigidBody.transform.DOScaleY(jumpScaleY, duration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
         myRigidBody.transform.DOScaleX(jumpScaleX, duration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
     }
+
+    private void OnPlayerKill()
+    {
+        OnKill -= OnPlayerKill;
+        playerAnimator.SetTrigger("_death");
+    }
+
+    public void DestroyMe()
+    {
+        Destroy(gameObject);
+    }
+
 }

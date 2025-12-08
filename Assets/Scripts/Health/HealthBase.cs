@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening.Core.Easing;
@@ -9,9 +10,10 @@ public class HealthBase : MonoBehaviour
     public int startLife = 10;
     public bool destroyOnKill = false;
     public float destroyDelay = 1f;
+    public Action OnKill;
 
     [SerializeField] private int _currentLife;
-    private bool _isDead = false;
+    [SerializeField] private bool _isDead = false;
     [SerializeField] private FlashColor _flashColor;
 
     private void Awake()
@@ -55,5 +57,7 @@ public class HealthBase : MonoBehaviour
         {
             Destroy(gameObject, destroyDelay);
         }
+
+        OnKill?.Invoke();
     }
 }
