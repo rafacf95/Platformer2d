@@ -7,7 +7,7 @@ public class Player : HealthBase
 {
 
     public Rigidbody2D myRigidBody;
-
+    /*
     [Header("Speed Setup")]
     public Vector2 friction = new Vector2(.1f, 0);
     public float speed = 5f;
@@ -19,11 +19,15 @@ public class Player : HealthBase
     // public float jumpScaleX = .5f;
     // public float duration = .3f;
     // public Ease ease = Ease.OutBack;
-    public Animator playerAnimator;
     public float playerSwipeDuration = .1f;
     public string goingUp = "_goingUp";
     public string goingDown = "_goingDown";
     public string grounded = "_grounded";
+    */
+
+    [Header("Setup")]
+    public SOPlayerSetup soPlayerSetup;
+    public Animator playerAnimator;
 
     private float _currentSpeed;
 
@@ -43,14 +47,14 @@ public class Player : HealthBase
     private void HandleMovement()
     {
 
-        _currentSpeed = Input.GetKey(KeyCode.LeftShift) ? speedRun : speed;
+        _currentSpeed = Input.GetKey(KeyCode.LeftShift) ? soPlayerSetup.speedRun : soPlayerSetup.speed;
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             myRigidBody.velocity = new Vector2(-_currentSpeed, myRigidBody.velocity.y);
             if (myRigidBody.transform.localScale.x != -1)
             {
-                myRigidBody.transform.DOScaleX(-1, playerSwipeDuration);
+                myRigidBody.transform.DOScaleX(-1, soPlayerSetup.playerSwipeDuration);
             }
             playerAnimator.SetBool("_running", true);
 
@@ -60,7 +64,7 @@ public class Player : HealthBase
             myRigidBody.velocity = new Vector2(_currentSpeed, myRigidBody.velocity.y);
             if (myRigidBody.transform.localScale.x != 1)
             {
-                myRigidBody.transform.DOScaleX(1, playerSwipeDuration);
+                myRigidBody.transform.DOScaleX(1, soPlayerSetup.playerSwipeDuration);
             }
             playerAnimator.SetBool("_running", true);
         }
@@ -71,11 +75,11 @@ public class Player : HealthBase
 
         if (myRigidBody.velocity.x > 0)
         {
-            myRigidBody.velocity -= friction;
+            myRigidBody.velocity -= soPlayerSetup.friction;
         }
         else if (myRigidBody.velocity.x < 0)
         {
-            myRigidBody.velocity += friction;
+            myRigidBody.velocity += soPlayerSetup.friction;
         }
     }
 
@@ -83,7 +87,7 @@ public class Player : HealthBase
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            myRigidBody.velocity = Vector2.up * jumpForce;
+            myRigidBody.velocity = Vector2.up * soPlayerSetup.jumpForce;
             // myRigidBody.transform.localScale = Vector2.one;
             // HandleScaleJump();
 
@@ -95,22 +99,22 @@ public class Player : HealthBase
         if (myRigidBody.velocity.y > 0)
         {
             // Debug.Log("moving up");
-            playerAnimator.SetBool(grounded, false);
-            playerAnimator.SetBool(goingDown, false);
-            playerAnimator.SetBool(goingUp, true);
+            playerAnimator.SetBool(soPlayerSetup.grounded, false);
+            playerAnimator.SetBool(soPlayerSetup.goingDown, false);
+            playerAnimator.SetBool(soPlayerSetup.goingUp, true);
         }
         else if (myRigidBody.velocity.y < 0)
         {
             // Debug.Log("moving down");
-            playerAnimator.SetBool(grounded, false);
-            playerAnimator.SetBool(goingUp, false);
-            playerAnimator.SetBool(goingDown, true);
+            playerAnimator.SetBool(soPlayerSetup.grounded, false);
+            playerAnimator.SetBool(soPlayerSetup.goingUp, false);
+            playerAnimator.SetBool(soPlayerSetup.goingDown, true);
         }
         else
         {
-            playerAnimator.SetBool(goingUp, false);
-            playerAnimator.SetBool(goingDown, false);
-            playerAnimator.SetBool(grounded, true);
+            playerAnimator.SetBool(soPlayerSetup.goingUp, false);
+            playerAnimator.SetBool(soPlayerSetup.goingDown, false);
+            playerAnimator.SetBool(soPlayerSetup.grounded, true);
         }
     }
 
