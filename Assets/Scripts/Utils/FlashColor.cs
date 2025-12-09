@@ -10,20 +10,20 @@ public class FlashColor : MonoBehaviour
     public Color color = Color.red;
     public float duration = .1f;
 
-    private void OnValidate()
-    {
-        spriteRenderers = new List<SpriteRenderer>();
-        foreach (var child in transform.GetComponentsInChildren<SpriteRenderer>())
-        {
-            spriteRenderers.Add(child);
-        }
-    }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
             Flash();
+        }
+
+        if (spriteRenderers.Count == 0)
+        {
+            spriteRenderers = new List<SpriteRenderer>();
+            foreach (var child in transform.GetComponentsInChildren<SpriteRenderer>())
+            {
+                spriteRenderers.Add(child);
+            }
         }
     }
 

@@ -12,6 +12,7 @@ public class SOPlayerSetup : ScriptableObject
     public float jumpForce = 10f;
 
     [Header("Animation Setup")]
+    public Animator playerAnimator;
     public float playerSwipeDuration = .1f;
     public string goingUp = "_goingUp";
     public string goingDown = "_goingDown";

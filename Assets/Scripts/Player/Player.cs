@@ -27,13 +27,16 @@ public class Player : HealthBase
 
     [Header("Setup")]
     public SOPlayerSetup soPlayerSetup;
-    public Animator playerAnimator;
+    // public Animator playerAnimator;
 
     private float _currentSpeed;
+    private Animator _currentPlayer;
 
     void Start()
     {
         OnKill += OnPlayerKill;
+
+        _currentPlayer = Instantiate(soPlayerSetup.playerAnimator, transform);
     }
 
     private void Update()
@@ -56,7 +59,7 @@ public class Player : HealthBase
             {
                 myRigidBody.transform.DOScaleX(-1, soPlayerSetup.playerSwipeDuration);
             }
-            playerAnimator.SetBool("_running", true);
+            _currentPlayer.SetBool("_running", true);
 
         }
         else if (Input.GetKey(KeyCode.RightArrow))
@@ -66,11 +69,11 @@ public class Player : HealthBase
             {
                 myRigidBody.transform.DOScaleX(1, soPlayerSetup.playerSwipeDuration);
             }
-            playerAnimator.SetBool("_running", true);
+            _currentPlayer.SetBool("_running", true);
         }
         else
         {
-            playerAnimator.SetBool("_running", false);
+            _currentPlayer.SetBool("_running", false);
         }
 
         if (myRigidBody.velocity.x > 0)
@@ -85,7 +88,7 @@ public class Player : HealthBase
 
     private void HandleJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _currentPlayer.GetBool(soPlayerSetup.grounded))
         {
             myRigidBody.velocity = Vector2.up * soPlayerSetup.jumpForce;
             // myRigidBody.transform.localScale = Vector2.one;
@@ -99,22 +102,22 @@ public class Player : HealthBase
         if (myRigidBody.velocity.y > 0)
         {
             // Debug.Log("moving up");
-            playerAnimator.SetBool(soPlayerSetup.grounded, false);
-            playerAnimator.SetBool(soPlayerSetup.goingDown, false);
-            playerAnimator.SetBool(soPlayerSetup.goingUp, true);
+            _currentPlayer.SetBool(soPlayerSetup.grounded, false);
+            _currentPlayer.SetBool(soPlayerSetup.goingDown, false);
+            _currentPlayer.SetBool(soPlayerSetup.goingUp, true);
         }
         else if (myRigidBody.velocity.y < 0)
         {
             // Debug.Log("moving down");
-            playerAnimator.SetBool(soPlayerSetup.grounded, false);
-            playerAnimator.SetBool(soPlayerSetup.goingUp, false);
-            playerAnimator.SetBool(soPlayerSetup.goingDown, true);
+            _currentPlayer.SetBool(soPlayerSetup.grounded, false);
+            _currentPlayer.SetBool(soPlayerSetup.goingUp, false);
+            _currentPlayer.SetBool(soPlayerSetup.goingDown, true);
         }
         else
         {
-            playerAnimator.SetBool(soPlayerSetup.goingUp, false);
-            playerAnimator.SetBool(soPlayerSetup.goingDown, false);
-            playerAnimator.SetBool(soPlayerSetup.grounded, true);
+            _currentPlayer.SetBool(soPlayerSetup.goingUp, false);
+            _currentPlayer.SetBool(soPlayerSetup.goingDown, false);
+            _currentPlayer.SetBool(soPlayerSetup.grounded, true);
         }
     }
 
@@ -128,7 +131,7 @@ public class Player : HealthBase
     private void OnPlayerKill()
     {
         OnKill -= OnPlayerKill;
-        playerAnimator.SetTrigger("_death");
+        _currentPlayer.SetTrigger("_death");
     }
 
     public void DestroyMe()

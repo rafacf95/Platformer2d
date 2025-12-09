@@ -15,6 +15,10 @@ public class GunBase : MonoBehaviour
         projectile.side = playerDirectionReference.transform.localScale.x;
     }
 
+    void Awake()
+    {
+        playerDirectionReference = GetComponentInParent<Player>().gameObject.transform;
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
