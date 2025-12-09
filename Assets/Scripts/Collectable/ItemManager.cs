@@ -6,9 +6,12 @@ using TMPro;
 
 public class ItemManager : Singleton<ItemManager>
 {
+    [Header("Coins setup")]
     public SOInt coins;
-    public SOInt lifes;
     public TextMeshProUGUI coinText;
+
+    [Header("Lifes setup")]
+    public SOInt lifes;
     public TextMeshProUGUI lifeText;
 
     private void Reset()
