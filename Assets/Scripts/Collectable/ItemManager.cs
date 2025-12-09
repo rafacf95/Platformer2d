@@ -6,19 +6,19 @@ using TMPro;
 
 public class ItemManager : Singleton<ItemManager>
 {
-    public int coins;
+    public SOInt coins;
     public TextMeshProUGUI coinText;
 
     private void Reset()
     {
-        coins = 0;
-        coinText.text = "x " + ItemManager.Instance.coins.ToString();
+        coins.value = 0;
+        // coinText.text = "x " + ItemManager.Instance.coins.value.ToString();
     }
 
     public void AddCoin(int amount = 1)
     {
-        coins += amount;
-        coinText.text = "x " + ItemManager.Instance.coins.ToString();
+        coins.value += amount;
+        // coinText.text = "x " + ItemManager.Instance.coins.value.ToString();
     }
 
     void Start()
