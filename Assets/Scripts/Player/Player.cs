@@ -132,7 +132,8 @@ public class Player : HealthBase
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded())
         {
             myRigidBody.velocity = Vector2.up * soPlayerSetup.jumpForce;
-            _particlesJump.Play();
+            // _particlesJump.Play();
+            VFXManager.Instance.PlayVFXByType(VFXManager.VFXType.JUMP, gameObject.transform.position);
             _particles.Stop();
             // myRigidBody.transform.localScale = Vector2.one;
             // HandleScaleJump();
