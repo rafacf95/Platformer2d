@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Data;
 
 public class Player : HealthBase
 {
@@ -27,11 +28,15 @@ public class Player : HealthBase
 
     [Header("Setup")]
     public SOPlayerSetup soPlayerSetup;
-    public ParticleSystem particles;
-    // public Animator playerAnimator;
+
+    [Header("Jump Collision Check")]
+    public float distToGround = 0;
+    public float spaceToGround = 1f;
 
     private float _currentSpeed;
     private Animator _currentPlayer;
+    private ParticleSystem _particles;
+    private ParticleSystem _particlesJump;
 
     void Start()
     {
@@ -39,12 +44,8 @@ public class Player : HealthBase
 
         _currentPlayer = Instantiate(soPlayerSetup.playerAnimator, transform);
 
-        if (soPlayerSetup.particles != null)
-        {
-            var aux = Instantiate(soPlayerSetup.particles, gameObject.transform);
-            aux.transform.position = gameObject.transform.position;
-            aux.Play();
-        }
+        InstantiateParticles();
+
     }
 
     private void Update()
@@ -52,7 +53,39 @@ public class Player : HealthBase
         HandleJump();
         HandleJumpAnimation();
         HandleMovement();
+        HandleParticles();
 
+    }
+
+    private void InstantiateParticles()
+    {
+        if (soPlayerSetup.particles != null)
+        {
+            _particles = Instantiate(soPlayerSetup.particles, gameObject.transform);
+            _particles.transform.position = gameObject.transform.position;
+        }
+
+        if (soPlayerSetup.particlesJump != null)
+        {
+            _particlesJump = Instantiate(soPlayerSetup.particlesJump, gameObject.transform);
+            _particlesJump.transform.position = gameObject.transform.position;
+        }
+    }
+
+    private bool isGrounded()
+    {
+        Debug.DrawRay(transform.position, new Vector2(0, -(spaceToGround + distToGround)), Color.magenta, .5f);
+        return Physics2D.Raycast(transform.position, Vector2.down, spaceToGround + distToGround, LayerMask.GetMask("Floor"));
+    }
+
+    
+
+    private void HandleParticles()
+    {
+        if(isGrounded() && !_particles.isPlaying)
+        {
+            _particles.Play();
+        }
     }
 
     private void HandleMovement()
@@ -96,9 +129,11 @@ public class Player : HealthBase
 
     private void HandleJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _currentPlayer.GetBool(soPlayerSetup.grounded))
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded())
         {
             myRigidBody.velocity = Vector2.up * soPlayerSetup.jumpForce;
+            _particlesJump.Play();
+            _particles.Stop();
             // myRigidBody.transform.localScale = Vector2.one;
             // HandleScaleJump();
 
@@ -107,14 +142,14 @@ public class Player : HealthBase
 
     private void HandleJumpAnimation()
     {
-        if (myRigidBody.velocity.y > 0)
+        if (myRigidBody.velocity.y > 0 && !isGrounded())
         {
             // Debug.Log("moving up");
             _currentPlayer.SetBool(soPlayerSetup.grounded, false);
             _currentPlayer.SetBool(soPlayerSetup.goingDown, false);
             _currentPlayer.SetBool(soPlayerSetup.goingUp, true);
         }
-        else if (myRigidBody.velocity.y < 0)
+        else if (myRigidBody.velocity.y < 0 && !isGrounded())
         {
             // Debug.Log("moving down");
             _currentPlayer.SetBool(soPlayerSetup.grounded, false);

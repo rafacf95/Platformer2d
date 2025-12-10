@@ -20,4 +20,5 @@ public class SOPlayerSetup : ScriptableObject
 
     [Header("Particle System")]
     public ParticleSystem particles;
+    public ParticleSystem particlesJump;
 }

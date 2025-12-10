@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   compareTag: Player
   particles: {fileID: 6790310042577542973}
-  timeToHide: 3
+  timeToHide: 1
   graphItem: {fileID: 2938049454232631944}
 --- !u!95 &7376013386506669545
 Animator:
