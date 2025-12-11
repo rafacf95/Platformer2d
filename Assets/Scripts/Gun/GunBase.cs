@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class GunBase : MonoBehaviour
 {
+    [Header("Setup")]
     public ProjectileBase prefabProjectile;
     public Transform positionToShoot;
     public Transform playerDirectionReference;
+    public AudioSource shootSfx;
     // Start is called before the first frame update
     public void Shoot()
     {
