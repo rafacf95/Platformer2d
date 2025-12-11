@@ -1,3 +1,4 @@
+[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/rafacf95/Platformer_2d/blob/main/README.md)
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/rafacf95/Platformer_2d/blob/main/README.en.md)
 
 # Platformer_2d
