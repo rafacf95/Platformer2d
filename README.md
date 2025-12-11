@@ -1,3 +1,5 @@
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/rafacf95/Platformer_2d/blob/main/README.en.md)
+
 # Platformer_2d
 
 **Platformer_2d** é um projeto de jogo 2D no estilo platformer,
