@@ -131,6 +131,7 @@ public class Player : HealthBase
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded())
         {
+            gameObject.GetComponent<AudioSource>().Play();
             myRigidBody.velocity = Vector2.up * soPlayerSetup.jumpForce;
             // _particlesJump.Play();
             VFXManager.Instance.PlayVFXByType(VFXManager.VFXType.JUMP, gameObject.transform.position);
