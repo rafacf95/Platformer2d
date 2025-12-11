@@ -176,11 +176,20 @@ public class Player : HealthBase
     {
         OnKill -= OnPlayerKill;
         _currentPlayer.SetTrigger("_death");
+        StartCoroutine(TriggerGameOver());
     }
 
     public void DestroyMe()
     {
         Destroy(gameObject);
+    }
+
+    IEnumerator TriggerGameOver()
+    {
+        Debug.Log("Inicio");
+        yield return new WaitForSeconds(1f);
+        Debug.Log("Fim");
+        GameOverManager.Instance.GameOver();
     }
 
 }
