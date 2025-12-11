@@ -40,6 +40,12 @@ The project implements classic 2D platformer mechanics, focusing on code organiz
 
 4.  Press **Play** to run the game.
 
+## How to play
+-   Move using the arrow keys
+-   Shoot: S
+-   Jump: Spacebar
+
+
 ## Repository Structure
 
 ``` text
