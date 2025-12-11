@@ -46,6 +46,11 @@ desenvolvimento de jogos.
 
 4.  Pressione **Play** para rodar o jogo.
 
+## Como jogar
+-   Movimento pelas setas do teclado
+-   Atirar: S
+-   Pular: Barra de espaço
+
 ## Estrutura do Repositório
 
 ``` text
