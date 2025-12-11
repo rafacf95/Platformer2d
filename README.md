@@ -16,9 +16,9 @@ desenvolvimento de jogos.
 
 ### Características Principais
 
--   Movimento básico do personagem\
--   Sistema de colisão 2D\
--   Estrutura organizada para expansão do projeto\
+-   Movimento básico do personagem
+-   Sistema de colisão 2D
+-   Estrutura organizada para expansão do projeto
 -   Assets e scripts preparados para evolução do jogo
 
 ## Tecnologias e Ferramentas Utilizadas
