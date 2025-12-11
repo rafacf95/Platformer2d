@@ -10,6 +10,9 @@ public class ItemCollectableBase : MonoBehaviour
     public float timeToHide = 1f;
     public GameObject graphItem;
 
+    [Header("Sounds")]
+    public AudioSource audioSource;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.CompareTag(compareTag))
@@ -42,5 +45,6 @@ public class ItemCollectableBase : MonoBehaviour
                 particles.Play();
             }
         }
+        if(audioSource != null) audioSource.Play();
     }
 }
