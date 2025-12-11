@@ -8,13 +8,14 @@ public class GunBase : MonoBehaviour
     public ProjectileBase prefabProjectile;
     public Transform positionToShoot;
     public Transform playerDirectionReference;
-    public AudioSource shootSfx;
+    public AudioRandomPlayAudioClips shootSfx;
     // Start is called before the first frame update
     public void Shoot()
     {
         var projectile = Instantiate(prefabProjectile);
         projectile.transform.position = positionToShoot.position;
         projectile.side = playerDirectionReference.transform.localScale.x;
+        shootSfx.PlayRandom();
     }
 
     void Awake()
