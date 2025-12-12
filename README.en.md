@@ -18,8 +18,8 @@ The project implements classic 2D platformer mechanics, focusing on code organiz
 
 ## Technologies and Tools Used
 
--   Game engine: Unity\
--   Language: C#\
+-   Game engine: Unity
+-   Language: C#
 -   Version control: Git
 
 ## How to Download and Run
