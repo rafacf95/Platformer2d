@@ -1,7 +1,7 @@
 [![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/rafacf95/Platformer_2d/blob/main/README.md)
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/rafacf95/Platformer_2d/blob/main/README.en.md)
 
-# Platformer_2d
+# Platformer2d
 
 **Platformer_2d** is a 2D platformer-style game project developed for the purpose of studying and practicing basic platform game mechanics, including movement, collisions, and interaction with the environment.
 
