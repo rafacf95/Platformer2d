@@ -4,6 +4,7 @@
 # Platformer2d
 
 **Platformer_2d** is a 2D platformer-style game project developed for the purpose of studying and practicing basic platform game mechanics, including movement, collisions, and interaction with the environment.
+Developed during classes on the EBAC platform.
 
 ## Overview
 

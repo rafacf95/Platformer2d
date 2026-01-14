@@ -6,7 +6,7 @@
 **Platformer_2d** é um projeto de jogo 2D no estilo platformer,
 desenvolvido para fins de estudo e prática de mecânicas básicas de jogos
 de plataforma, incluindo movimentação, colisões e interação com o
-ambiente.
+ambiente. Desenvolvido durante as aulas da plataforma EBAC.
 
 ## Visão Geral
 
